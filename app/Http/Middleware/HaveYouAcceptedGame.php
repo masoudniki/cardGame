@@ -28,6 +28,7 @@ class HaveYouAcceptedGame
     }
     public function doesUserAcceptedTheGame($request): bool
     {
+
         $game=$request->route()->parameter("game");
         return (bool)$game->GamePlayers()->where("user_id","=",Auth::user()->id)->where('games_players.status','=','ready')->first();
 

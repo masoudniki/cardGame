@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use App\Events\UserJoined;
 use App\Listeners\ConnectionClosedListener;
-use App\Listeners\UserJoinedGame;
+use App\Listeners\HandleJoiningEvents;
 use App\Listeners\UserJoinedListener;
 use BeyondCode\LaravelWebSockets\Events\ConnectionClosed;
 use BeyondCode\LaravelWebSockets\Events\SubscribedToChannel;
@@ -26,8 +26,7 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
         SubscribedToChannel::class=>[
-            UserJoinedListener::class,
-            UserJoinedGame::class
+            HandleJoiningEvents::class
         ],
         UnsubscribedFromChannel::class=>[
         ],

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Listeners;
+namespace App\Listeners\JoinListeners;
 
 use App\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -10,9 +10,13 @@ use Illuminate\Support\Facades\Http;
 
 class UserJoinedListener
 {
-    public function handle($event)
+    public $event;
+    public function __construct($event){
+        $this->event=$event;
+    }
+    public function handle()
     {
-        $this->user_joined($event->socketId,optional($event->user)->user_id);
+        $this->user_joined($this->event->socketId,optional($this->event->user)->user_id);
     }
     public function user_joined($socket_id,$user_id=null){
         if($user=User::query()->find($user_id)){

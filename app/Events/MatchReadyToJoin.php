@@ -15,12 +15,13 @@ class MatchReadyToJoin implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
     public $game;
-    private Collection $players;
+    private ?Collection $players;
 
-    public function __construct($game,$players)
+    public function __construct($game)
     {
+
         $this->game=$game;
-        $this->players=$game->players;
+        $this->players=$game->GamePlayers;
     }
     public function broadcastOn()
     {

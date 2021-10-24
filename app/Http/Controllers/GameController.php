@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Game\UserStatus;
 use App\Jobs\FindGame;
 use App\Models\Game;
+use App\Repository\UserGames;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -21,14 +23,11 @@ class GameController extends Controller
         ]);
     }
     public function acceptGame(Game $game){
-        $game->GamePlayers()->where("user_id","=",Auth::user()->id)->update([
-            "status"=>"ready"
-        ]);
-        $howManyPlayerJoined=$game->GamePlayers()->where("status","=","ready")->count();
+        UserGames::updateUserStatus($game,Auth::user(),UserStatus::READY);
         return response()->json([
             "data"=>[
                 "message"=>"successfully joined",
-                "how_many_player_joined"=>$howManyPlayerJoined
+                "how_many_player_joined"=>$game->GamePlayers()->where("status","=","ready")->count()
             ]
         ]);
     }

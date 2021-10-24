@@ -24,9 +24,11 @@ class GameController extends Controller
         $game->GamePlayers()->where("user_id","=",Auth::user()->id)->update([
             "status"=>"ready"
         ]);
+        $howManyPlayerJoined=$game->GamePlayers()->where("status","=","ready")->count();
         return response()->json([
             "data"=>[
-                "message"
+                "message"=>"successfully joined",
+                "how_many_player_joined"=>$howManyPlayerJoined
             ]
         ]);
     }

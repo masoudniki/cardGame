@@ -25,8 +25,6 @@ class FindGame implements ShouldQueue
     public function __construct()
     {
         $this->queue="game-finder";
-
-
     }
 
     /**

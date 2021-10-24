@@ -37,6 +37,8 @@ class MatchReadyToJoin implements ShouldBroadcast
     public function broadcastWith(){
         return [
             "game_id"=>$this->game_id,
+            "warmup_time_unit"=>"second",
+            "warmup_time"=>60
         ];
     }
 }
